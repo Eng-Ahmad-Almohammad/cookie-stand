@@ -1,5 +1,10 @@
  td {
-    border: 1px solid black;
+    border: 5px solid black;
     width: 100px;
     text-align: center;
+    color: black;
+    font-weight: bolder;
+}
+body{
+    background-image: url(https://raw.githubusercontent.com/LTUC/amman-201d9/master/class-08/lab-b/assets/salmon.png);
 }
