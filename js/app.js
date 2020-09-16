@@ -6,6 +6,7 @@ var cumArr = new Array(LEN).fill(0);
 var div1 = document.getElementById('unorderedList');
 var table1 = document.createElement('table');
 div1.appendChild(table1);
+var globalObjectArray = [];
 
 // Declaring function for objacts
 function Cookies(name, MinHourlyCustomers, MaxHourlyCustomers, AverageCookiesPerCustomer) {
@@ -13,6 +14,7 @@ function Cookies(name, MinHourlyCustomers, MaxHourlyCustomers, AverageCookiesPer
     this.MinHourlyCustomers = MinHourlyCustomers;
     this.MaxHourlyCustomers = MaxHourlyCustomers;
     this.AverageCookiesPerCustomer = AverageCookiesPerCustomer;
+    globalObjectArray.push(this);
 }
 // Declaring a method to get a random number betwenn two values
 Cookies.prototype.randomNumber = function () {
@@ -34,41 +36,42 @@ Cookies.prototype.finalResults = function () {
     Arr1 = [];
     for (var i = 0; i < 14; i++) {
         Arr1.push(this.averagePurchased());
-        cumArr[i] +=  Arr1[i];
+        cumArr[i] += Arr1[i];
     }
 
-    
+
 }
 
 
 // Declaring method to creat table which have the random numbers and the summition of each row
-Cookies.prototype.render = function (para) {
+Cookies.prototype.render = function () {
     this.row2 = document.createElement('tr');
     table1.appendChild(this.row2);
 
 
     this.sumRows = 0;
 
-    
+
     for (var i = 0; i <= 15; i++) {
         if (i < 15) {
-            if(i==0){
+            if (i == 0) {
                 this.list = document.createElement('td');
                 this.row2.appendChild(this.list);
                 this.list.textContent = this.Name;
-                
+
             }
-            else{
-            this.list = document.createElement('td');
-            this.row2.appendChild(this.list);
-            this.list.textContent = Arr1[i-1];
-            this.sumRows += Arr1[i-1];}
+            else {
+                this.list = document.createElement('td');
+                this.row2.appendChild(this.list);
+                this.list.textContent = Arr1[i - 1];
+                this.sumRows += Arr1[i - 1];
+            }
         }
         if (i == 15) {
             this.list = document.createElement('td');
             this.row2.appendChild(this.list);
             this.list.textContent = this.sumRows;
-            cumArr [14]+=this.sumRows;
+            cumArr[14] += this.sumRows;
         }
 
 
@@ -78,60 +81,42 @@ Cookies.prototype.render = function (para) {
 }
 
 // Declaring method to creat last row which have the summition of each column
-Cookies.prototype.renderSum = function(){
-    this.lastRow= document.createElement('tr');
-    table1.appendChild(this.lastRow);
-     for(var i = 0 ; i <16 ; i++){
-         if(i==0)
-         {
-            this.sumCol = document.createElement('td');
-            this.lastRow.appendChild(this.sumCol);
-            this.sumCol.textContent= 'Totals'; 
-         }
-         else{
-            this.sumCol = document.createElement('td');
-            this.lastRow.appendChild(this.sumCol);
-            this.sumCol.textContent= cumArr[i-1]; 
-        }
-     }
 
-
-
-}
 
 
 // Creating the titel row 
-var tableTitel = document.createElement('tr');
-table1.appendChild(tableTitel);
 
-var strFlag = 'am';
-for (var i = 0; i < 16; i++) {
-    if (i == 0) {
-        var emptyCell = document.createElement('td');
-        tableTitel.appendChild(emptyCell);
-        emptyCell.textContent = '\t';
+function header() {
+    var tableTitel = document.createElement('tr');
+    table1.appendChild(tableTitel);
+    var strFlag = 'am';
+    for (var i = 0; i < 16; i++) {
+        if (i == 0) {
+            var emptyCell = document.createElement('td');
+            tableTitel.appendChild(emptyCell);
+            emptyCell.textContent = '\t';
+
+        }
+
+
+        else if (i == 15) {
+            var emptyCell = document.createElement('td');
+            tableTitel.appendChild(emptyCell);
+            emptyCell.textContent = 'Daily Location Total';
+
+        }
+        else {
+            var emptyCell = document.createElement('td');
+            tableTitel.appendChild(emptyCell);
+            var j = i + 5;
+            if (j >= 12) strFlag = 'pm';
+            if (j > 12) { j -= 12; }
+            emptyCell.textContent = j + ':00' + strFlag
+        }
+
 
     }
-
-
-    else if (i == 15) {
-        var emptyCell = document.createElement('td');
-        tableTitel.appendChild(emptyCell);
-        emptyCell.textContent = 'Daily Location Total';
-
-    }
-    else {
-        var emptyCell = document.createElement('td');
-        tableTitel.appendChild(emptyCell);
-        var j = i + 5;
-        if (j >= 12) strFlag = 'pm';
-        if (j > 12) { j -= 12; }
-        emptyCell.textContent = j + ':00' + strFlag
-    }
-
-
 }
-
 
 var seattle = new Cookies('Seattle', 23, 65, 6.3);
 var tokyo = new Cookies('Tokyo', 3, 24, 1.2);
@@ -141,21 +126,99 @@ var lima = new Cookies('Lima', 2, 16, 4.6);
 
 
 
-seattle.finalResults();
-seattle.render();
+// seattle.finalResults();
+// seattle.render();
 
-tokyo.finalResults();
-tokyo.render();
+// tokyo.finalResults();
+// tokyo.render();
 
-dubai.finalResults();
-dubai.render();
+// dubai.finalResults();
+// dubai.render();
 
-paris.finalResults();
-paris.render();
+// paris.finalResults();
+// paris.render();
 
-lima.finalResults();
-lima.render();
-lima.renderSum();
+// lima.finalResults();
+// lima.render();
+
+
+
+
+function renderSum() {
+    var lastRow = document.createElement('tr');
+    table1.appendChild(lastRow);
+    for (var i = 0; i < 16; i++) {
+        if (i == 0) {
+            var sumCol = document.createElement('td');
+            lastRow.appendChild(sumCol);
+            sumCol.textContent = 'Totals';
+        }
+        else {
+            var sumCol = document.createElement('td');
+            lastRow.appendChild(sumCol);
+            sumCol.textContent = cumArr[i - 1];
+        }
+    }
+
+
+
+}
+
+var form = document.getElementById('form');
+
+form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    console.log(event);
+
+    var name = event.target.name.value;
+    console.log('name: ', name);
+
+    var MinHourlyCustomers = event.target.min.value;
+    MinHourlyCustomers = Number(MinHourlyCustomers);
+    console.log('min ' + MinHourlyCustomers);
+
+    var MaxHourlyCustomers = event.target.max.value;
+    MaxHourlyCustomers = Number(MaxHourlyCustomers);
+    console.log('max ' + MaxHourlyCustomers);
+
+    var AverageCookiesPerCustomer = event.target.avg.value;
+    AverageCookiesPerCustomer = Number(AverageCookiesPerCustomer);
+    AverageCookiesPerCustomer = parseFloat(AverageCookiesPerCustomer);
+    console.log('avg ' + AverageCookiesPerCustomer);
+
+    LEN = 15;
+    cumArr = new Array(LEN).fill(0);
+
+    table1.innerHTML = "";
+
+    header();
+    var addedLocation = new Cookies(name, MinHourlyCustomers, MaxHourlyCustomers, AverageCookiesPerCustomer);
+
+
+    
+
+    for ( var i = 0; i < globalObjectArray.length; i++) {
+        globalObjectArray[i].finalResults();
+        globalObjectArray[i].render();
+        console.log(globalObjectArray[i]);
+
+    }
+    renderSum();
+
+
+
+
+})
+
+header();
+for ( var i = 0; i < globalObjectArray.length; i++) {
+    globalObjectArray[i].finalResults();
+    globalObjectArray[i].render();
+
+}
+renderSum();
+
+
 
 
 
