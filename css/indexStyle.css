@@ -100,6 +100,7 @@ nav{
     margin-top: 50px;
     background-color: lightseagreen;
     padding-bottom: 0.01px;
+    position: -webkit-sticky; 
     position: sticky;
     top: 0;
 }
@@ -137,7 +138,7 @@ a{
 }
 
 #cutter-img{
-    margin-top: 100px;
+    margin-top: 500px;
     width: 25%;
     margin-right: 500px;
 }
@@ -177,5 +178,18 @@ body{
     padding-left: 16px;
     
     margin-top: 500px;
+
+}
+
+#shirt{
+    float: right;
+    margin-top: -400px;
+}
+
+#shirt-p{
+    border: 1px solid black;
+    background-color: cadetblue;
+    padding-left: 50px;
+    text-align: center;
 
 }
