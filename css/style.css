@@ -1,4 +1,10 @@
- td {
+
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+
+
+
+td {
     border: 5px solid black;
     width: 100px;
     text-align: center;
@@ -122,8 +128,8 @@ header{
     
 }
 .h1{
-    font-family: Brush Script MT, Brush Script Std, cursive;
-    font-size: 20px;
+    font-family: 'Pacifico', cursive;
+    font-size: 19px;
    
 }
 #background-img{
@@ -194,4 +200,8 @@ a{
     padding-left: 50px;
     text-align: center;
 
+}
+
+table{
+    border-radius: 20px;
 }
